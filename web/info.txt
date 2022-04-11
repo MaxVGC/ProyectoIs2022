@@ -1,0 +1,13 @@
+Juego online de cartas  multi-jugador
+Se desea construir un sistema web que permita jugar de forma online juegos de cartas. 
+Cada set de cargas se podrá diseñar acorde a diferentes temáticas, 
+cada carta tendrá asociada una imagen que le represente. 
+Los jugadores podrán elegir el set de cartas con el cual desean jugar, 
+cada carta tendrá unos atributos asociados los cuales tendrán un determinado valor. 
+El atributo y el valor serán la clave principal del juego, u
+na característica  con un mayor valor ganara respecto a otras. 
+Existirán características especiales de algunos atributos en las cartas, 
+las cuales permitirán tener valores más altos. 
+Los jugadores pueden jugar simultáneamente y sus cartas se deben ver en pantalla, 
+así como sus cartas. De cada jugador se debe llevar registro de sus acciones  y de las partidas realizadas, 
+además, los jugadores de una misma sesión podrán ponerse de acuerdo para pausar una sesión y continuarla más adelante.

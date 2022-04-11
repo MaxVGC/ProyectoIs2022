@@ -1,0 +1,203 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+
+
+/* 
+    Created on : 10/04/2022, 01:49:47 PM
+    Author     : carlo
+*/
+
+body {
+    overflow-y: hidden;
+}
+
+.container-fluid {
+    background-size: cover;
+    height: 100vh;
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+.div-chat-lobby {
+    background: #121212;
+    border-right: solid 2px #1d1d1d;
+}
+
+.div-main-lobby {
+    background-color: #121212;
+    padding: 0;
+}
+
+.header-info {
+    height: 80px;
+    border-bottom: solid 2px #1d1d1d;
+}
+
+.header-img {
+    width: 78px;
+    display: flex;
+    align-items: center;
+}
+
+.img-border {
+    width: 78px;
+    height: 54px;
+    background-color: #272727;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.img-border img {
+    width: 75%;
+    border-radius: 15px;
+}
+
+.img-border #status {
+    width: 3px;
+    height: 15px;
+    background-color: greenyellow;
+    position: fixed;
+    left: 12px;
+    box-shadow: 0px 0px 20px 2px greenyellow;
+}
+
+#header-nickname {
+    width: calc(100% - 78px);
+    display: flex;
+    align-items: center;
+}
+
+#chat-body {
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    padding-bottom: 55px;
+    align-content: flex-start;
+}
+
+#input-chat {
+    height: 55px;
+    padding-left: 12px;
+    bottom: 55px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(20px);
+}
+
+#chat-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+#chat-body::-webkit-scrollbar-thumb {
+    background-color: #B0B0B0;
+    border-radius: 10px;
+}
+
+#chat-body::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 55px;
+}
+
+.send-btn {
+    padding: 0;
+    width: fit-content;
+    margin: 0;
+    width: 15%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#input-chat .send-btn i {
+    padding: 0;
+    width: fit-content;
+    font-size: 25px;
+    margin: 0;
+    color: gray;
+}
+
+.input-custom {
+    background-color: #272727;
+    border-radius: 50px 50px 50px 50px;
+    border-style: solid;
+    border-color: transparent;
+    transition: all .2s ease-out;
+    text-align: center;
+    width: 85%;
+    color: #B0B0B0;
+    height: 35px;
+}
+
+.input-custom:focus {
+    transition: all .2s ease-out;
+    border: double 2px transparent;
+    border-radius: 50px;
+    background-image: linear-gradient(#272727, #272727), radial-gradient( circle farthest-corner at 10.2% 55.8%, rgba(252, 37, 103, 1) 0%, rgba(250, 38, 151, 1) 46.2%, rgba(186, 8, 181, 1) 90.1%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+:focus {
+    outline: 0;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.div-message {
+    height: fit-content;
+    padding-top: 12px;
+}
+
+.msg-nickname {
+    color: red;
+}
+
+.msg-nickname-me {
+    color: red;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.message {
+    padding: 12px;
+    background-color: #272727;
+    border-radius: 0px 25px 25px 25px;
+    width: fit-content;
+    word-break: break-word;
+}
+
+.message span {
+    color: white;
+    font-size: 13px;
+}
+
+.message-me {
+    padding: 12px;
+    background-color: #272727;
+    border-radius: 25px 0px 25px 25px;
+    word-break: break-word;
+}
+
+.message-me span {
+    color: white;
+    font-size: 13px;
+}
+
+.msg-time {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.msg-time span {
+    color: gray;
+    font-size: 12px;
+}

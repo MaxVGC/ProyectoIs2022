@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="js/MultiChat.js"></script>
+        <title></title>
+    </head>
+
+    <body>
+        <input id = "input_roomName" style = "width: 10em" type = "text" placeholder = "número de habitación">
+        <input id = "input_nickname" style = "width: 10em" type = "text" placeholder = "nickname">
+        <input class = "btn btn-default" type = "button" value = "Ingrese a la sala de chat" onclick = "initWebSocket()">
+        <input class = "btn btn-default" type = "button" value = "Salir de la sala de chat" onclick = "closeWs()">
+        <div id="msg_board" class="chat-discussion msg_board">
+        </div>
+        <div class="form-group">
+            <textarea id = "input_msg" class = "form-control message-input" name = "message" placeholder = "input message content"> </textarea>
+            <div class="buttongroup" style="float: right;">
+
+                <input id = "quxiaobtn" type = "reset" class = "btn btn-default" value = "Cancelar" />
+
+                <input id = "btn" type = "button" onclick = "send_msg()" class = "btn btn-default" value = "OK" />
+            </div>
+        </div>
+        <a href="pages/inicio.jsp">xxx</a>
+    </body>
+
+</html>
