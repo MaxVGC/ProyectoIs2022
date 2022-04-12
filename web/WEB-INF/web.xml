@@ -20,6 +20,14 @@
         <servlet-name>prueba</servlet-name>
         <servlet-class>Prueba.prueba</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MostrarSalas</servlet-name>
+        <servlet-class>Servlet.MostrarSalas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorrarSalas</servlet-name>
+        <servlet-class>Servlet.BorrarSalas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prueba</servlet-name>
         <url-pattern>/Prueba</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>prueba</servlet-name>
         <url-pattern>/prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostrarSalas</servlet-name>
+        <url-pattern>/MostrarSalas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarSalas</servlet-name>
+        <url-pattern>/BorrarSalas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

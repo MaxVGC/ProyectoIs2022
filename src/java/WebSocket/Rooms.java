@@ -5,8 +5,10 @@
 package WebSocket;
 
 import AddOns.Core;
+import AddOns.Salas;
 import Serializar.SerializarUsuario;
 import AddOns.Usuarios;
+import Serializar.CurrentSalas;
 import Serializar.DeserializarUsuario;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
@@ -33,17 +35,34 @@ public class Rooms {
     // Use el mapa para recopilar la sesión, la clave es roomName, el valor es una colección de usuarios en la misma sala
     // Se informa un error cuando la clave de concurrentMap no existe, no es nula
     private static final Map<String, Set<Session>> rooms = new ConcurrentHashMap();
-    private static final ArrayList<Rooms> roomsList = new ArrayList();
+    private static ArrayList<Salas> salasList = null;
     private static final Core core = new Core();
     SerializarUsuario Su = new SerializarUsuario();
 
     @OnOpen
     public void connect(@PathParam("roomName") String roomName, @PathParam("type") String type, @PathParam("nick") String nickname, Session session) throws Exception {
+        if (new CurrentSalas().getCurrentSalasList() != null) {
+            salasList = new CurrentSalas().getCurrentSalasList();
+        } else {
+            salasList = new ArrayList();
+        }
+        Salas sala = new Salas();
         if (!rooms.containsKey(roomName)) {
+            sala.setNombre(roomName);
+            ArrayList<Usuarios> usuarios = new ArrayList<>();
+            Usuarios aux2 = new Usuarios();
+            aux2.setNickname(nickname);
+            usuarios.add(aux2);
+            sala.setUsuarios(usuarios);
+            sala.setJuego(type);
+            salasList.add(sala);
             Set<Session> room = new HashSet<>();
             room.add(session);
             rooms.put(roomName, room);
+            new CurrentSalas().setCurrentSalasList(salasList);
         } else {
+            sala.setNombre(roomName);
+            sala.addUsuario(nickname);
             rooms.get(roomName).add(session);
         }
         System.out.println(nickname + " se ha conectado a " + roomName);
@@ -64,7 +83,6 @@ public class Rooms {
         Date date = new Date();
         String time = simpleDateFormat.format(date);
         String message;
-
         for (Session session1 : rooms.get(roomName)) {
             if (session1.equals(session)) {
                 message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + nickname + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
