@@ -7,8 +7,16 @@ var xMLHttpRequest = new XMLHttpRequest();
 var webSocket;
 var nick = readCookie("nickname");
 var send_btn = document.getElementById("send-btn");
+var room_create = document.getElementById("room-create");
+var close_create_btn = document.getElementById("close-crear");
 
+room_create.addEventListener("click", function() {
+    document.getElementById("crear-sala").classList.toggle("active");
+});
 send_btn.addEventListener("click", send_msg);
+close_create_btn.addEventListener("click", function() {
+    document.getElementById("crear-sala").classList.toggle("active");
+});
 
 Validar();
 
@@ -17,20 +25,24 @@ function readCookie(name) {
 }
 
 function Validar() {
-    var nick = readCookie("nickname");
-    xMLHttpRequest.open("Get", "../ValidarUsuario?nick=" + nick + "&sessionid=" + readCookie("uuid"), true);
-    xMLHttpRequest.onreadystatechange = function() {
-        if (xMLHttpRequest.readyState === 4 && xMLHttpRequest.status === 200) {
-            if (xMLHttpRequest.responseText === "null") {
-                document.getElementById("header-nickname-txt").innerHTML = nick;
-                initWebSocket(nick);
-            } else {
-                window.location = "inicio.jsp";
+    if (readCookie("nickname") != null && readCookie("uuid") != null) {
+        var nick = readCookie("nickname");
+        xMLHttpRequest.open("Get", "../ValidarUsuario?nick=" + nick + "&sessionid=" + readCookie("uuid"), true);
+        xMLHttpRequest.onreadystatechange = function() {
+            if (xMLHttpRequest.readyState === 4 && xMLHttpRequest.status === 200) {
+                if (xMLHttpRequest.responseText === "null") {
+                    document.getElementById("header-nickname-txt").innerHTML = nick;
+                    initWebSocket(nick);
+                } else {
+                    window.location = "inicio.jsp";
+                }
+                console.log(xMLHttpRequest.responseText);
             }
-            console.log(xMLHttpRequest.responseText);
-        }
-    };
-    xMLHttpRequest.send(null);
+        };
+        xMLHttpRequest.send(null);
+    } else {
+        window.location = "inicio.jsp";
+    }
 }
 
 function initWebSocket(nickname) {
@@ -77,6 +89,20 @@ function send_msg() {
         alert("Estás desconectado, vuelve a ingresar a la sala de chat ...");
     }
 };
+
+function Crear_sala() {
+    document.cookie = "room=";
+    document.cookie = "type_game=";
+    var name = document.getElementById("name_crear_sala").value;
+    var type = document.getElementById("select_crear_sala").value;
+    document.cookie = "room=" + name;
+    document.cookie = "type_game=" + type;
+    if (type == "Card-Jitsu") {
+        window.location = "cardjitsu.jsp";
+    }
+}
+
+
 
 window.addEventListener('keydown', (event) => {
     if (event.code === 'Enter') {

@@ -42,8 +42,12 @@ public class MostrarUsuarios extends HttpServlet {
                 if (usuarios == null) {
                     out.print("no ha nada");
                 } else {
+                    out.write("size:"+usuarios.size());
+                    out.print("<br>");
                     for (int i = 0; i < usuarios.size(); i++) {
                         out.println(usuarios.get(i).toString());
+                        out.println(usuarios.get(i).getSala());
+                        out.println("<br>");
                     }
                 }
 

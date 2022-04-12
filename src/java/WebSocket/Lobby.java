@@ -7,6 +7,7 @@ package WebSocket;
 import AddOns.Core;
 import Serializar.SerializarUsuario;
 import AddOns.Usuarios;
+import Serializar.DeserializarUsuario;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
@@ -32,39 +33,47 @@ public class Lobby {
     // Use el mapa para recopilar la sesión, la clave es roomName, el valor es una colección de usuarios en la misma sala
     // Se informa un error cuando la clave de concurrentMap no existe, no es nula
     private static final Map<String, Set<Session>> rooms = new ConcurrentHashMap();
-    private static final ArrayList<Usuarios> usuarios = new ArrayList();
+    private static ArrayList<Usuarios> usuarios = null;
     private static final Core core = new Core();
     SerializarUsuario Su = new SerializarUsuario();
 
     @OnOpen
     public void connect(@PathParam("roomName") String roomName, @PathParam("id") String token, Session session) throws Exception {
         String[] info = token.split("@");
+        if(new DeserializarUsuario().getCurrentUsuariosList()!=null){
+            usuarios = new DeserializarUsuario().getCurrentUsuariosList();
+        }else{
+            usuarios=new ArrayList();
+        }
         if (!rooms.containsKey(roomName)) {
             Usuarios aux = new Usuarios();
             Set<Session> room = new HashSet<>();
             room.add(session);
             aux.setNickname(info[0]);
             aux.setSessionId(info[1]);
+            aux.setSala("lobby");
             usuarios.add(aux);
             rooms.put(roomName, room);
         } else {
             Usuarios aux = new Usuarios();
             aux.setNickname(info[0]);
             aux.setSessionId(info[1]);
+            aux.setSala("lobby");
             usuarios.add(aux);
             rooms.get(roomName).add(session);
         }
-        System.out.println(info[0] + " conectado a sala " + roomName);
+        System.out.println(info[0] + " se ha conectado a lobby");
         Su.setCurrentUsuariosList((ArrayList<Usuarios>) usuarios.clone());
     }
 
     @OnClose
-    public void disConnect(@PathParam("roomName") String roomName, @PathParam("id") String nickname, Session session) throws IOException {
+    public void disConnect(@PathParam("roomName") String roomName, @PathParam("id") String nickname, Session session) throws IOException, ClassNotFoundException {
         String[] info = nickname.split("@");
+        usuarios = new DeserializarUsuario().getCurrentUsuariosList();
         usuarios.remove(core.getUsuario(usuarios, info[0]));
         Su.setCurrentUsuariosList((ArrayList<Usuarios>) usuarios.clone());
+        System.out.println(info[0] + " se ha desconectado de lobby");
         rooms.get(roomName).remove(session);
-        System.out.println(nickname + " desconectado");
     }
 
     @OnMessage
@@ -74,10 +83,9 @@ public class Lobby {
         String[] info = nickname.split("@");
         String time = simpleDateFormat.format(date);
         String message;
-
         for (Session session1 : rooms.get(roomName)) {
             if (session1.equals(session)) {
-                message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>"+info[0]+"</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
+                message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + info[0] + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
             } else {
                 message = "<div class=\"div-message\"> <div class=\"msg-nickname\"> <span>" + info[0] + "</span> </div><div class=\"message\"> <span>" + msg + "</span> <div class=\"msg-time\"> <span> " + time + " </span> </div></div></div>";
             }

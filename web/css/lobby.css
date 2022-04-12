@@ -14,7 +14,6 @@ body {
 }
 
 .container-fluid {
-    background-size: cover;
     height: 100vh;
     padding: 0;
 }
@@ -29,7 +28,7 @@ body {
 }
 
 .div-main-lobby {
-    background-color: #121212;
+    background: #121212;
     padding: 0;
 }
 
@@ -103,6 +102,14 @@ body {
 #chat-body::-webkit-scrollbar-track-piece:end {
     background: transparent;
     margin-bottom: 55px;
+}
+
+#chat-body .div-message .message span img {
+    width: 100%;
+}
+
+#chat-body .div-message .message-me div span img {
+    width: 100%;
 }
 
 .send-btn {
@@ -200,4 +207,291 @@ body {
 .msg-time span {
     color: gray;
     font-size: 12px;
+}
+
+.main-rooms {
+    padding: 0;
+    padding-top: 12px;
+}
+
+.rooms {
+    padding-left: 12px;
+    height: 250px;
+    flex-direction: column;
+    overflow-x: auto;
+    justify-content: center;
+    align-content: flex-start;
+    position: relative;
+    top: -18px;
+}
+
+.rooms::-webkit-scrollbar {
+    width: 10px;
+}
+
+.rooms::-webkit-scrollbar-thumb {
+    background-color: #B0B0B0;
+    border-radius: 10px;
+}
+
+.rooms::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-right: 12px;
+}
+
+.rooms::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-left: 12px;
+}
+
+#room-create {
+    position: relative;
+    width: 300px;
+    height: 150px;
+    background-color: #1d1d1d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 30px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+#room-create i {
+    color: gray;
+    transition: 0.5s;
+}
+
+#room-create:hover i {
+    color: white;
+    transition: 0.5s;
+}
+
+#room-create #span {
+    height: 0px;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+#room-create:hover #span {
+    height: 21px;
+    transition: 0.5s;
+}
+
+#room-create:hover {
+    background-color: #12121290;
+    transition: 0.5s;
+}
+
+#room-create:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    transition: 0.5s;
+    border-radius: 20px;
+}
+
+#room-create:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -2;
+    filter: blur(40px);
+    transition: 0.5s;
+    border-radius: 20px;
+}
+
+#room-create:before,
+#room-create:after {
+    transition: 0.5s;
+    opacity: 0;
+}
+
+#room-create:hover:before,
+#room-create:hover:after {
+    opacity: 1;
+    transition: 0.5s;
+    background: linear-gradient(235deg, rgba(255, 0, 0, 1) 0%, rgba(18, 18, 18, 0) 20%, rgba(18, 18, 18, 0) 80%, rgba(0, 0, 255, 1) 100%);
+}
+
+.room {
+    position: relative;
+    width: 300px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    margin-right: 30px;
+}
+
+.room .background img {
+    position: relative;
+    top: -20px;
+    left: -23px;
+}
+
+.room .background h2 {
+    position: relative;
+    top: -169px;
+    left: 190px;
+    width: fit-content;
+    margin: 0!important;
+}
+
+.room .content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: 0.5s;
+    opacity: 0;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.room:hover .content {
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.room .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: #12121290;
+    backdrop-filter: blur(164px);
+    border-radius: 20px;
+}
+
+.room:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    transition: 0.5s;
+}
+
+.room:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -2;
+    filter: blur(40px);
+    transition: 0.5s;
+}
+
+.room:before,
+.room:after {
+    border-radius: 20px;
+    transition: 0.5s;
+    background: linear-gradient(235deg, rgba(255, 0, 0, 1) 0%, rgba(18, 18, 18, 0) 20%, rgba(18, 18, 18, 0) 80%, rgba(0, 0, 255, 1) 100%);
+}
+
+.room:hover:before,
+.room:hover:after {
+    border-radius: 20px;
+    transition: 0.5s;
+    background: linear-gradient(235deg, rgba(255, 0, 0, 1) 0%, rgba(18, 18, 18, 0) 30%, rgba(18, 18, 18, 0) 70%, rgba(0, 0, 255, 1) 100%);
+}
+
+#crear-sala {
+    opacity: 0;
+    position: fixed;
+    top: 80px;
+    left: 12px;
+    width: 300px;
+    height: 0px;
+    transition: 0.5s;
+    background-color: #1d1d1d;
+    z-index: -1;
+}
+
+#crear-sala.active {
+    opacity: 1;
+    transition: 0.5s;
+    height: 180px;
+    top: 83px;
+    left: 12px;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+#crear-sala .title-crear {
+    display: flex;
+}
+
+#crear-sala .row .title {
+    color: white;
+    margin-top: 6px;
+    width: 262px;
+}
+
+#crear-sala .row #close-crear {
+    color: white;
+    margin-top: 6px;
+    font-size: 21px;
+    width: fit-content;
+}
+
+#crear-sala .elegir-juego {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#crear-sala .elegir-juego label {
+    width: auto;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+#crear-sala .elegir-juego select {
+    width: auto;
+    border: none;
+    background-color: transparent;
+    color: gray;
+}
+
+#crear-sala .name-sala input {
+    width: auto;
+    background-color: transparent;
+    border: none;
+    color: gray;
+    border-bottom: solid 1px;
+    width: 140px;
+}
+
+#crear-sala .name-sala {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#crear-sala .name-sala span {
+    width: auto;
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+#btn_crear_sala {
+    margin-top: 12px;
+    width: 60%;
+    border-radius: 12px;
 }

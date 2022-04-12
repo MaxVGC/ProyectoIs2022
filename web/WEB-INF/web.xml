@@ -16,6 +16,10 @@
         <servlet-name>BorrarUsuarios</servlet-name>
         <servlet-class>Servlet.BorrarUsuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>prueba</servlet-name>
+        <servlet-class>Prueba.prueba</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prueba</servlet-name>
         <url-pattern>/Prueba</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>BorrarUsuarios</servlet-name>
         <url-pattern>/BorrarUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prueba</servlet-name>
+        <url-pattern>/prueba</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

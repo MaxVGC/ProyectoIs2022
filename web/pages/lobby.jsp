@@ -47,7 +47,54 @@
                         </div>
                     </div>
                     <div class="col-md-9 div-main-lobby" style="padding: 0%;">
+                        <div class="row" style="height: 100%;">
+                            <div class="col-md-12 main-rooms" style="backdrop-filter: blur(10px);">
+                                <div class="row">
+                                    <h2 style="color: white;">Salas disponibles</h2>
+                                </div>
+                                <div class="row rooms">
+                                    <div id="room-create">
+                                        <i class="fa-solid fa-plus" style="font-size:50px;"></i>
+                                        <div id="span">
+                                            <span style="color: white;">Crear sala</span>
+                                        </div>
+                                    </div>
+                                    <div class="room">
+                                        <div class="background">
+                                            <img src="../img/prueba-2.png" alt="">
+                                            <h2 style="color: white">Sala 1</h2>
+                                        </div>
+                                        <div class="content">
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="crear-sala">
+                                    <div class="row title-crear">
+                                        <div class="title">
+                                            <h4>Crea tu sala</h4>
+                                        </div>
+                                        <div id="close-crear">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row name-sala">
+                                        <span class="input-group-text" id="basic-addon2">Nombre de sala</span>
+                                        <input id="name_crear_sala" type="text" class="form-control" placeholder="Ingrese aqui" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="row elegir-juego">
+                                        <label class="input-group-text" for="select_crear_sala">Tipo de juego</label>
+                                        <select class="form-select" id="select_crear_sala">
+                                          <option selected>Escoge...</option>
+                                          <option value="Card-Jitsu">Card-Jitsu</option>
+                                        </select>
+                                    </div>
+                                    <div class="row" style="justify-content: center">
+                                        <button id="btn_crear_sala" type="submit" class="btn btn-primary btn-grad" onclick="Crear_sala()">Crear</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

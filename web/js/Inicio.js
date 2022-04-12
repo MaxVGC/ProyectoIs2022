@@ -9,6 +9,9 @@ var xMLHttpRequest = new XMLHttpRequest();
 init();
 
 function init() {
+    document.cookie = "nickname=";
+    document.cookie = "room=";
+    document.cookie = "type_game=";
     if (readCookie("uuid") == null) {
         document.cookie = "uuid=" + generateUUID();
     }

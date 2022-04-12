@@ -4,14 +4,7 @@
  */
 package AddOns;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +14,7 @@ public class Usuarios implements Serializable {
 
     private String nickname;
     private String sessionId;
+    private String sala;
     private static final long serialVersionUID = 1857893973041690918L;
 
     public String getNickname() {
@@ -37,6 +31,14 @@ public class Usuarios implements Serializable {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String getSala() {
+        return sala;
+    }
+
+    public void setSala(String sala) {
+        this.sala = sala;
     }
 
     @Override

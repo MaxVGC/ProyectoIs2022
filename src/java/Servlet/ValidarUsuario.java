@@ -24,6 +24,9 @@ import java.util.logging.Logger;
  */
 public class ValidarUsuario extends HttpServlet {
 
+    DeserializarUsuario aux = null;
+    SerializarUsuario Su = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,12 +43,14 @@ public class ValidarUsuario extends HttpServlet {
 
             String nick = request.getParameter("nick");
             String token = request.getParameter("sessionid");
-            DeserializarUsuario aux = new DeserializarUsuario();
-            ArrayList<Usuarios> usuarios = aux.getCurrentUsuariosList();
+            String url = request.getParameter("url");
 
+            aux = new DeserializarUsuario();
+            ArrayList<Usuarios> usuarios = aux.getCurrentUsuariosList();
             int nick_aux = 0;
             int token_aux = 0;
-            if (usuarios!=null) {
+
+            if (usuarios != null) {
                 for (int i = 0; i < usuarios.size(); i++) {
                     if (usuarios.get(i).getNickname().equals(nick)) {
                         nick_aux = 1;
@@ -56,6 +61,17 @@ public class ValidarUsuario extends HttpServlet {
                 }
             }
 
+            if (url != null && nick_aux == 0 && token_aux == 0) {
+                if (usuarios != null) {
+                    Su = new SerializarUsuario();
+                    Usuarios aux3 = new Usuarios();
+                    aux3.setNickname(nick);
+                    aux3.setSessionId(token);
+                    usuarios.add(aux3);
+                    Su.setCurrentUsuariosList(usuarios);
+                    usuarios = aux.getCurrentUsuariosList();
+                } 
+            }
             if (nick_aux == 0 && token_aux == 0) {
                 out.print("null");
             } else if (nick_aux == 1) {
@@ -63,7 +79,6 @@ public class ValidarUsuario extends HttpServlet {
             } else if (token_aux == 1) {
                 out.print("Ya se encuentra una session abierta");
             }
-
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ValidarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

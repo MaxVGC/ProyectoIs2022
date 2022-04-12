@@ -4,7 +4,7 @@
  */
 package Serializar;
 
-import AddOns.*;
+import AddOns.Salas;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
  *
  * @author carlo
  */
-public class SerializarUsuario {
+public class SerializarRoom {
     private FileOutputStream file;
     private ObjectOutputStream output;
 
     
     public void abrir() throws IOException{
-        file = new FileOutputStream("usuarios.ser");
+        file = new FileOutputStream("salas.ser");
         output=new ObjectOutputStream(file);
     }
     
@@ -30,10 +30,10 @@ public class SerializarUsuario {
         }
     }
     
-    public void setCurrentUsuariosList(ArrayList<Usuarios>  rooms) throws IOException{
+    public void setCurrentRoomList(ArrayList<Salas>  salas) throws IOException{
         abrir();
         if(output!=null){
-            output.writeObject(rooms);
+            output.writeObject(salas);
         }
         cerrar();
     }
