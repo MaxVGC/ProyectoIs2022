@@ -50,6 +50,10 @@ function initWebSocket() {
                         document.getElementById("nickname2").innerHTML = ident[1];
                         webSocket.send("nickname@<span style='z-index: 1;'>" + readCookie("nickname") + "</span>");
                         break;
+                    case 'leave':
+                        alert(ident[1] + " se ha desconectado");
+                        window.location = "lobby.jsp";
+                        break;
                     default:
                         var msg_board = document.getElementById("chat-body");
                         var received_msg = evt.data;
@@ -65,7 +69,8 @@ function initWebSocket() {
 
         webSocket.onclose = function() {
             webSocket = null;
-            alert("cerrad");
+            alert("El oponente se ha desconectado.");
+            window.location = "lobby.jsp";
         };
     } else {
         alert("¡Su navegador no es compatible con WebSocket!");

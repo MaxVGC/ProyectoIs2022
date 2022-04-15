@@ -50,6 +50,8 @@ public class Rooms {
         } else {
             salasList = new ArrayList();
         }
+        System.out.println("Size " + rooms.size());
+
         sala.setNombre(roomName);
         if (!rooms.containsKey(roomName)) {
             ArrayList<Usuarios> usuarios = new ArrayList<>();
@@ -88,8 +90,11 @@ public class Rooms {
         Su.setCurrentUsuariosList((ArrayList<Usuarios>) usuarios.clone());
         sala.removeUsuario(roomName, nickname);
         Salas_Cardjitsu = new CardJitsu().removeUsuario(Salas_Cardjitsu, nickname);
-        rooms.get(roomName).remove(session);
-        if (rooms.get(roomName).size() == 0) {
+        if (rooms.containsKey(roomName)) {
+            rooms.get(roomName).remove(session);
+            for (Session session1 : rooms.get(roomName)) {
+                session1.getBasicRemote().sendText("leave@" + nickname);
+            }
             rooms.remove(roomName);
         }
         System.out.println(nickname + " se ha desconectado de " + roomName);
@@ -103,10 +108,10 @@ public class Rooms {
         String message;
         String[] data = msg.split("@");
         if (data[0].equals("message")) {
-            msg=msg.substring(8, msg.length());
+            msg = msg.substring(8, msg.length());
             for (Session session1 : rooms.get(roomName)) {
                 if (session1.equals(session)) {
-                    message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + nickname + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg  + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
+                    message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + nickname + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
                 } else {
                     message = "<div class=\"div-message\"> <div class=\"msg-nickname\"> <span>" + nickname + "</span> </div><div class=\"message\"> <span>" + msg + "</span> <div class=\"msg-time\"> <span> " + time + " </span> </div></div></div>";
                 }

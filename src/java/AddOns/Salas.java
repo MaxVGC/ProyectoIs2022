@@ -90,6 +90,28 @@ public class Salas implements Serializable {
         }
     }
 
+    public boolean exist(String name) {
+        try {
+            String aux = name;
+            ArrayList<Salas> aux2 = new CurrentSalas().getCurrentSalasList();
+            boolean aux3 = false;
+            if (aux2 != null) {
+                for (int i = 0; i < aux2.size(); i++) {
+                    if (aux2.get(i).getNombre().equals(aux)) {
+                        aux3 = true;
+                    }
+                }
+            }
+            return aux3;
+        } catch (IOException ex) {
+            Logger.getLogger(Salas.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Salas.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
     public void addUsuario(String nickname) {
         try {
             Usuarios usuario = new Usuarios();
@@ -113,18 +135,15 @@ public class Salas implements Serializable {
     public void removeUsuario(String roomName, String nick) {
         try {
             int index = getNameRoom(roomName);
-            ArrayList<Salas> CSalas = new CurrentSalas().getCurrentSalasList();
-            Salas sala = CSalas.get(index);
-            ArrayList<Usuarios> usuarios = sala.getUsuarios();
-            usuarios.remove(new Usuarios().getIndexUsuario(usuarios, nick));
-            if (usuarios.size() != 0) {
-                sala.setUsuarios(usuarios);
+            if (exist(roomName)) {
+                ArrayList<Salas> CSalas = new CurrentSalas().getCurrentSalasList();
+                Salas sala = CSalas.get(index);
+                ArrayList<Usuarios> usuarios = sala.getUsuarios();
+                usuarios.remove(new Usuarios().getIndexUsuario(usuarios, nick));
                 CSalas.remove(index);
-                CSalas.add(sala);
-            } else {
-                CSalas.remove(index);
+                new CurrentSalas().setCurrentSalasList(CSalas);
             }
-            new CurrentSalas().setCurrentSalasList(CSalas);
+
         } catch (IOException ex) {
             Logger.getLogger(Salas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -134,3 +153,24 @@ public class Salas implements Serializable {
 
 }
 
+//public void removeUsuario(String roomName, String nick) {
+//        try {
+//            int index = getNameRoom(roomName);
+//            ArrayList<Salas> CSalas = new CurrentSalas().getCurrentSalasList();
+//            Salas sala = CSalas.get(index);
+//            ArrayList<Usuarios> usuarios = sala.getUsuarios();
+//            usuarios.remove(new Usuarios().getIndexUsuario(usuarios, nick));
+//            if (usuarios.size() != 0) {
+//                sala.setUsuarios(usuarios);
+//                CSalas.remove(index);
+//                CSalas.add(sala);
+//            } else {
+//                CSalas.remove(index);
+//            }
+//            new CurrentSalas().setCurrentSalasList(CSalas);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Salas.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Salas.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
