@@ -15,9 +15,11 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <link rel="stylesheet" href="../bootstrap-5.1.3-dist/css/bootstrap.min.css" />
             <link rel="stylesheet" href="../css/cardjitsu.css">
+            <link rel="stylesheet" href="../css/cards_cardjitsu.css">
             <script src="https://kit.fontawesome.com/fbb5fada5a.js" crossorigin="anonymous"></script>
             <script src="../bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script type="text/javascript" src="../js/vanilla-tilt.js"></script>
+            <script src="../js/jquery-3.6.0.min.js"></script>
             <script src="../js/Cardjitsu.js" async></script>
         </head>
 
@@ -47,10 +49,30 @@
                         </div>
                     </div>
                     <div class="col-md-9 div-main-lobby" style="padding: 0%;">
+                        <div class="game-container">
+                            <div class="row main-container">
+                                <div class="header-game">
+                                    <div class="timer">
+                                        <span>--</span>
+                                    </div>
+                                    <div class="nicknames">
+                                        <div id="nickname1">
+                                            <span style='z-index: 1;'>Esperando oponente</span>
+                                        </div>
+                                        <div id="nickname2">
+                                            <span style='z-index: 1;'>Esperando oponente</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row card-container">
 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </body>
 
         </html>

@@ -5,6 +5,7 @@
 package AddOns;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -44,6 +45,16 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return nickname + "@" + sessionId;
+    }
+
+    public int getIndexUsuario(ArrayList<Usuarios> usuarios, String nickname) {
+        int aux=0;
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getNickname().equals(nickname)) {
+                aux = i;
+            }
+        }
+        return aux;
     }
 
 }

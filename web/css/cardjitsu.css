@@ -25,6 +25,7 @@ body {
 .div-chat-lobby {
     background: #121212;
     border-right: solid 2px #1d1d1d;
+    height: 100%;
 }
 
 .div-main-lobby {

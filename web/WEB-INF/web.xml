@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Prueba</servlet-name>
-        <servlet-class>Prueba.Prueba</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ValidarUsuario</servlet-name>
         <servlet-class>Servlet.ValidarUsuario</servlet-class>
     </servlet>
@@ -17,10 +13,6 @@
         <servlet-class>Servlet.BorrarUsuarios</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>prueba</servlet-name>
-        <servlet-class>Prueba.prueba</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MostrarSalas</servlet-name>
         <servlet-class>Servlet.MostrarSalas</servlet-class>
     </servlet>
@@ -28,10 +20,18 @@
         <servlet-name>BorrarSalas</servlet-name>
         <servlet-class>Servlet.BorrarSalas</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <servlet>
+        <servlet-name>ValidarSala</servlet-name>
+        <servlet-class>Servlet.ValidarSala</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cartas</servlet-name>
+        <servlet-class>Servlet.Cartas</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Prueba</servlet-name>
-        <url-pattern>/Prueba</url-pattern>
-    </servlet-mapping>
+        <servlet-class>Servlet.Prueba</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ValidarUsuario</servlet-name>
         <url-pattern>/ValidarUsuario</url-pattern>
@@ -45,16 +45,24 @@
         <url-pattern>/BorrarUsuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>prueba</servlet-name>
-        <url-pattern>/prueba</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>MostrarSalas</servlet-name>
         <url-pattern>/MostrarSalas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorrarSalas</servlet-name>
         <url-pattern>/BorrarSalas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidarSala</servlet-name>
+        <url-pattern>/ValidarSala</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cartas</servlet-name>
+        <url-pattern>/Cartas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Prueba</servlet-name>
+        <url-pattern>/Prueba</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

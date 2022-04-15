@@ -1,0 +1,380 @@
+@font-face {
+    font-family: "Patron";
+    src: url(../assets/Patron.ttf) format("truetype");
+}
+
+body {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #121212;
+}
+
+.game-container {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.main-container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.card-container {
+    position: fixed;
+    top: calc(100% - 255px);
+    width: 75%;
+    padding: 0;
+    margin: 0;
+    height: 255px;
+    min-height: 255px;
+    max-height: 255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.card-container .card-jitsu {
+    position: relative;
+    width: 150px;
+    height: 225px;
+    margin: 20px;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    font-family: 'Patron', sans-serif!important;
+}
+
+.card-container .card-jitsu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 37px;
+    width: 50%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu::after {
+    content: '';
+    position: absolute;
+    left: 37px;
+    width: 50%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.5s;
+    filter: blur(5px);
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu.red::after,
+.card-container .card-jitsu.red::before {
+    background: linear-gradient( 315deg, rgba(247, 87, 0, 1), rgba(249, 0, 0, 1));
+    /*    background: radial-gradient( circle farthest-corner at 10% 20%, rgba(247, 87, 0, 1) 0%, rgba(249, 0, 0, 1) 90.1%);
+        background: linear-gradient(315deg, #0a0905, #0400ff);
+    */
+}
+
+.card-container .card-jitsu.celeste::after,
+.card-container .card-jitsu.celeste::before {
+    background: linear-gradient( 315deg, rgba(128, 122, 242, 1), rgba(102, 249, 214, 1));
+    /*    background: radial-gradient( circle farthest-corner at 10% 20%, rgba(247, 87, 0, 1) 0%, rgba(249, 0, 0, 1) 90.1%);
+        background: linear-gradient(315deg, #0a0905, #0400ff);
+    */
+}
+
+.card-container .card-jitsu.blue::after,
+.card-container .card-jitsu.blue::before {
+    background: linear-gradient( 315deg, rgba(34, 53, 89, 1), rgb(15, 118, 173));
+}
+
+.card-container .card-jitsu.green::after,
+.card-container .card-jitsu.green::before {
+    background: linear-gradient( 315deg, rgba(123, 216, 96, 1), rgb(81, 255, 0));
+}
+
+.card-container .card-jitsu.yellow::after,
+.card-container .card-jitsu.yellow::before {
+    background: linear-gradient(315deg, rgba(207, 255, 137, 1) 0%, rgba(254, 255, 0, 1) 100%);
+}
+
+.card-container .card-jitsu.purple::after,
+.card-container .card-jitsu.purple::before {
+    background: linear-gradient( 315deg, rgba(239, 53, 188, 1.05), rgba(185, 28, 225, 1.00));
+}
+
+.card-container .card-jitsu.center::after,
+.card-container .card-jitsu.center::before {
+    transform: skewX(0deg);
+}
+
+.card-container .card-jitsu.left-1::after,
+.card-container .card-jitsu.left-1::before {
+    transform: skewX(20deg);
+}
+
+.card-container .card-jitsu.right-1::after,
+.card-container .card-jitsu.right-1::before {
+    transform: skewX(-20deg);
+}
+
+.card-container .card-jitsu:hover:after,
+.card-container .card-jitsu:hover:before {
+    transform: skewX(0deg);
+    left: 0px;
+    width: 100%;
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu:nth-child(1):after,
+.card-container .card-jitsu:nth-child(1):before {
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu .card-number-top {
+    color: white;
+    position: absolute;
+    font-size: 150px;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 225px;
+    transition: 0.5s;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    z-index: 9;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate3d(-50%, -50%, 50px);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 40%);
+}
+
+.card-container .card-jitsu .f1 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 75px);
+    top: 155px;
+    left: 100px;
+    opacity: 0;
+}
+
+.card-container .card-jitsu .f2 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 25px);
+    top: 155px;
+    left: 48px;
+    opacity: 0;
+    animation-delay: 1s;
+}
+
+.card-container .card-jitsu:hover .f2,
+.card-container .card-jitsu:hover .f1 {
+    top: 145px;
+    opacity: 1;
+    transition: 2s;
+}
+
+.card-container .card-jitsu .h1 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 75px);
+    top: 155px;
+    left: 45px;
+    opacity: 0;
+}
+
+.card-container .card-jitsu .h2 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 25px);
+    top: 90px;
+    left: -40px;
+    opacity: 0;
+}
+
+.card-container .card-jitsu:hover .h1 {
+    left: 85px;
+    opacity: 1;
+    transition: 2s;
+}
+
+.card-container .card-jitsu:hover .h2 {
+    left: 53px;
+    opacity: 1;
+    transition: 2s;
+}
+
+.card-container .card-jitsu .a1 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 75px);
+    top: 155px;
+    left: 45px;
+    opacity: 0;
+}
+
+.card-container .card-jitsu .a2 {
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 25px);
+    top: 120px;
+    left: 100px;
+    opacity: 0;
+}
+
+.card-container .card-jitsu:hover .a1 {
+    left: 80px;
+    opacity: 1;
+    transition: 2s;
+}
+
+.card-container .card-jitsu:hover .a2 {
+    left: 60px;
+    opacity: 1;
+    transition: 2s;
+}
+
+.card-container .card-jitsu .card-number-bottom {
+    color: white;
+    font-size: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 225px;
+    transition: 0.5s;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    z-index: 9;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate3d(-50%, -50%, 50px);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 40%);
+}
+
+.card-container .card-jitsu:hover .card-number-bottom {
+    opacity: 1;
+    font-size: 38px;
+    top: 85%;
+    left: 100%;
+    width: 50px;
+    height: 50px;
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu:hover .card-number-top {
+    opacity: 1;
+    font-size: 38px;
+    top: 15%;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    transition: 0.5s;
+}
+
+.card-container .card-jitsu .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 300px;
+    transition: 0.5s;
+    z-index: 11;
+    transition: 0.5s;
+    transform-style: preserve-3d;
+    transform: translate3d(-50%, -50%, 25px);
+    filter: drop-shadow(2px 4px 20px black);
+}
+
+.card-container .card-jitsu:hover .content {
+    transform: translate3d(-50%, -50%, 50px);
+}
+
+.main-container .header-game {
+    display: flex;
+    height: 50px;
+    flex-direction: row;
+    font-family: 'Patron', sans-serif!important;
+    padding: 0;
+}
+
+.main-container .header-game .nicknames {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.main-container .header-game .nicknames #nickname1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 12px;
+    color: white;
+}
+
+.main-container .header-game .nicknames #nickname1:after {
+    content: "";
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+}
+
+.main-container .header-game .nicknames #nickname1:before {
+    position: absolute;
+    content: "";
+    background-color: #272727;
+    height: 50px;
+    width: 270px;
+    border-radius: 0 0 15px 0;
+    left: 0px;
+}
+
+.main-container .header-game .nicknames #nickname2 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    width: 50%;
+    padding: 12px;
+    color: white;
+}
+
+.main-container .header-game .nicknames #nickname2:after {
+    content: "";
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+}
+
+.main-container .header-game .nicknames #nickname2:before {
+    position: absolute;
+    content: "";
+    background-color: #272727;
+    height: 50px;
+    width: 270px;
+    border-radius: 0 0 0 15px;
+    right: 0px;
+}
+
+.main-container .header-game .timer {
+    position: fixed;
+    width: 75%;
+    font-size: 32px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

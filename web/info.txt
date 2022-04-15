@@ -11,3 +11,25 @@ las cuales permitirán tener valores más altos.
 Los jugadores pueden jugar simultáneamente y sus cartas se deben ver en pantalla, 
 así como sus cartas. De cada jugador se debe llevar registro de sus acciones  y de las partidas realizadas, 
 además, los jugadores de una misma sesión podrán ponerse de acuerdo para pausar una sesión y continuarla más adelante.
+
+
+                                    <div id="room-create">
+                                        <i class="fa-solid fa-plus" style="font-size:50px;"></i>
+                                        <div id="span">
+                                            <span style="color: white;">Crear sala</span>
+                                        </div>
+                                    </div>
+                                    <div class="room">
+                                        <div class="background">
+                                            <div class="room-card">
+                                                <img src="../img/Plantilla_logo3.png" style="width: 70%;" alt="">
+                                            </div>
+                                            <img id="agua-icon" class="card-icon" src="../img/Agua100x100.png">
+                                            <img id="fuego-icon" class="card-icon" src="../img/fuego100x100.png">
+                                            <img id="hielo-icon" class="card-icon" src="../img/Hielo100x100.png">
+                                        </div>
+                                        <div class="content">
+                                            <span class="roomName">Sala</span>
+                                            <marquee class="room-creator">Creada por MaxVGC</marquee>
+                                        </div>
+                                    </div>

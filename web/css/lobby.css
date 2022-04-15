@@ -219,6 +219,7 @@ body {
     height: 250px;
     flex-direction: column;
     overflow-x: auto;
+    overflow-y: hidden;
     justify-content: center;
     align-content: flex-start;
     position: relative;
@@ -333,45 +334,115 @@ body {
     margin-right: 30px;
 }
 
-.room .background img {
-    position: relative;
-    top: -20px;
-    left: -23px;
-}
-
-.room .background h2 {
-    position: relative;
-    top: -169px;
-    left: 190px;
-    width: fit-content;
-    margin: 0!important;
-}
-
 .room .content {
     position: relative;
+    left: 83px;
     height: 100%;
-    width: 100%;
-    transition: 0.5s;
-    opacity: 0;
+    width: 134px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.room:hover .content {
-    transition: 0.5s;
-    opacity: 1;
+.room .content .roomName {
+    color: white;
+    font-size: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 130px;
+    display: inline-block;
+}
+
+.room .content .room-creator {
+    color: white;
+    -moz-binding: none;
 }
 
 .room .background {
     position: absolute;
     top: 0;
     left: 0;
+    overflow-y: hidden;
     width: 100%;
     height: 100%;
-    padding: 10px;
+    padding: 0px;
     background-color: #12121290;
     backdrop-filter: blur(164px);
     border-radius: 20px;
+}
+
+.room .background .room-card {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 113px;
+    height: 158px;
+    background: radial-gradient(circle, rgba(49, 49, 49, 0.5) 0%, rgba(22, 22, 22, 0.5) 100%);
+    border: 1px solid;
+    border-radius: 10px;
+    display: flex;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.room:hover .background .room-card {
+    top: 20px;
+    left: 0px;
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+.room:hover .background .room-card img {
+    filter: drop-shadow(2px 4px 6px black) grayscale(0);
+    transition: 0.5s;
+}
+
+.room .background .room-card img {
+    filter: drop-shadow(2px 4px 6px black) grayscale(1);
+    transition: 0.5s;
+}
+
+.room .background .card-icon#agua-icon,
+.room .background .card-icon#fuego-icon,
+.room .background .card-icon#hielo-icon {
+    width: 50px;
+    position: fixed;
+    z-index: -1;
+    top: 74px;
+    left: 51px;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.room:hover .background .card-icon#agua-icon {
+    width: 50px;
+    z-index: -1;
+    top: 8px;
+    transition: 0.5s;
+    left: 0px;
+    opacity: 1;
+}
+
+.room:hover .background .card-icon#fuego-icon {
+    width: 101px;
+    z-index: 1;
+    top: -7px;
+    transition: 0.5s;
+    left: 75px;
+    opacity: 1;
+}
+
+.room:hover .background .card-icon#hielo-icon {
+    width: 68px;
+    z-index: -1;
+    top: 100px;
+    transition: 0.5s;
+    left: 98px;
+    opacity: 1;
 }
 
 .room:before {

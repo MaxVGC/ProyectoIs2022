@@ -52,22 +52,14 @@
                                 <div class="row">
                                     <h2 style="color: white;">Salas disponibles</h2>
                                 </div>
-                                <div class="row rooms">
+                                <div id="div-contains-room-list" class="row rooms">
                                     <div id="room-create">
                                         <i class="fa-solid fa-plus" style="font-size:50px;"></i>
                                         <div id="span">
                                             <span style="color: white;">Crear sala</span>
                                         </div>
                                     </div>
-                                    <div class="room">
-                                        <div class="background">
-                                            <img src="../img/prueba-2.png" alt="">
-                                            <h2 style="color: white">Sala 1</h2>
-                                        </div>
-                                        <div class="content">
 
-                                        </div>
-                                    </div>
                                 </div>
                                 <div id="crear-sala">
                                     <div class="row title-crear">
