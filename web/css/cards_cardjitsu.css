@@ -14,9 +14,11 @@ body {
 }
 
 .game-container {
-    height: 100%;
-    width: 100%;
+    height: 665px;
+    width: 1024.5px;
+    position: relative;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .main-container {
@@ -27,7 +29,8 @@ body {
 
 .card-container {
     position: fixed;
-    top: calc(100% - 255px);
+    top: 100%;
+    opacity: 0;
     width: 75%;
     padding: 0;
     margin: 0;
@@ -38,6 +41,8 @@ body {
     align-items: center;
     justify-content: center;
     transform-style: preserve-3d;
+    transition: 1s;
+    z-index: 50;
 }
 
 .card-container .card-jitsu {
@@ -305,9 +310,12 @@ body {
 .main-container .header-game {
     display: flex;
     height: 50px;
-    flex-direction: row;
     font-family: 'Patron', sans-serif!important;
     padding: 0;
+    width: 100%;
+    flex-direction: row;
+    position: absolute;
+    z-index: 1;
 }
 
 .main-container .header-game .nicknames {
@@ -322,7 +330,7 @@ body {
     align-items: center;
     width: 50%;
     padding: 12px;
-    color: white;
+    color: black;
 }
 
 .main-container .header-game .nicknames #nickname1:after {
@@ -335,7 +343,7 @@ body {
 .main-container .header-game .nicknames #nickname1:before {
     position: absolute;
     content: "";
-    background-color: #272727;
+    background-color: white;
     height: 50px;
     width: 270px;
     border-radius: 0 0 15px 0;
@@ -349,7 +357,7 @@ body {
     flex-direction: row-reverse;
     width: 50%;
     padding: 12px;
-    color: white;
+    color: black;
 }
 
 .main-container .header-game .nicknames #nickname2:after {
@@ -362,7 +370,7 @@ body {
 .main-container .header-game .nicknames #nickname2:before {
     position: absolute;
     content: "";
-    background-color: #272727;
+    background-color: white;
     height: 50px;
     width: 270px;
     border-radius: 0 0 0 15px;
@@ -377,4 +385,282 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.main-container #container-my-card {
+    position: absolute;
+    top: 0;
+    left: -50%;
+    opacity: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Patron', sans-serif!important;
+    transition: 1s;
+}
+
+.main-container #container-enemy-card {
+    position: absolute;
+    top: 0;
+    right: -50%;
+    opacity: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Patron', sans-serif!important;
+    transition: 1s;
+}
+
+#container-my-card .card-jitsu,
+#container-enemy-card .card-jitsu {
+    position: relative;
+    width: 263px;
+    height: 394px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#container-my-card .card-jitsu::before,
+#container-enemy-card .card-jitsu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+#container-my-card .card-jitsu::after,
+#container-enemy-card .card-jitsu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.5s;
+    filter: blur(5px);
+    transition: 0.5s;
+}
+
+#container-enemy-card .card-jitsu.off::after,
+#container-enemy-card .card-jitsu.off::before {
+    background: linear-gradient(315deg, rgba(39, 39, 39, 1) 0%, rgba(51, 51, 51, 1) 50%, rgba(39, 39, 39, 1) 100%);
+}
+
+#container-enemy-card .card-jitsu.off .content {
+    width: 200px;
+    top: 22%;
+    left: 12%;
+    filter: drop-shadow(2px 4px 6px black);
+}
+
+#container-my-card .card-jitsu.red::after,
+#container-enemy-card .card-jitsu.red::after,
+#container-my-card .card-jitsu.red::before,
+#container-enemy-card .card-jitsu.red::before,
+.row-point.red {
+    background: linear-gradient( 315deg, rgba(247, 87, 0, 1), rgba(249, 0, 0, 1));
+}
+
+#container-my-card .card-jitsu.celeste::after,
+#container-enemy-card .card-jitsu.celeste::after,
+#container-my-card .card-jitsu.celeste::before,
+#container-enemy-card .card-jitsu.celeste::before,
+.row-point.celeste {
+    background: linear-gradient( 315deg, rgba(128, 122, 242, 1), rgba(102, 249, 214, 1));
+}
+
+#container-my-card .card-jitsu.blue::after,
+#container-enemy-card .card-jitsu.blue::after,
+#container-my-card .card-jitsu.blue::before,
+#container-enemy-card .card-jitsu.blue::before,
+.row-point.blue {
+    background: linear-gradient( 315deg, rgba(34, 53, 89, 1), rgb(15, 118, 173) 78.4%);
+}
+
+#container-my-card .card-jitsu.green::after,
+#container-enemy-card .card-jitsu.green::after,
+#container-my-card .card-jitsu.green::before,
+#container-enemy-card .card-jitsu.green::before,
+.row-point.green {
+    background: linear-gradient( 315deg, rgba(123, 216, 96, 1), rgb(81, 255, 0));
+}
+
+#container-my-card .card-jitsu.yellow::after,
+#container-enemy-card .card-jitsu.yellow::after,
+#container-my-card .card-jitsu.yellow::before,
+#container-enemy-card .card-jitsu.yellow::before,
+.row-point.yellow {
+    background: linear-gradient(315deg, rgba(207, 255, 137, 1) 0%, rgba(254, 255, 0, 1) 100%);
+}
+
+#container-my-card .card-jitsu.purple::after,
+#container-enemy-card .card-jitsu.purple::after,
+#container-my-card .card-jitsu.purple::before,
+#container-enemy-card .card-jitsu.purple::before,
+.row-point.purple {
+    background: linear-gradient( 315deg, rgba(239, 53, 188, 1.05), rgba(185, 28, 225, 1.00));
+}
+
+#container-my-card .card-jitsu .card-number-top,
+#container-enemy-card .card-jitsu .card-number-top {
+    opacity: 1;
+    font-size: 67px;
+    top: 5%;
+    left: -17%;
+    width: 88px;
+    height: 88px;
+    transition: 0.5s;
+    color: white;
+    position: absolute;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 40%);
+}
+
+#container-my-card .card-jitsu .h1,
+#container-enemy-card .card-jitsu .h1 {
+    left: 140px;
+    opacity: 1;
+    position: absolute;
+    top: 235px;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .h2,
+#container-enemy-card .card-jitsu .h2 {
+    left: 40px;
+    opacity: 1;
+    position: absolute;
+    top: 75px;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .a1,
+#container-enemy-card .card-jitsu .a1 {
+    position: absolute;
+    top: 255px;
+    left: 125px;
+    opacity: 1;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .a2,
+#container-enemy-card .card-jitsu .a2 {
+    position: absolute;
+    top: 70px;
+    left: 60px;
+    opacity: 1;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .f1,
+#container-enemy-card .card-jitsu .f1 {
+    position: absolute;
+    top: 215px;
+    left: 165px;
+    opacity: 1;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .f2,
+#container-enemy-card .card-jitsu .f2 {
+    position: absolute;
+    top: 215px;
+    left: 55px;
+    opacity: 1;
+    z-index: 12;
+}
+
+#container-my-card .card-jitsu .card-number-bottom,
+#container-enemy-card .card-jitsu .card-number-bottom {
+    color: white;
+    position: absolute;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    transform-style: preserve-3d;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate3d(-50%, -50%, 50px);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 40%);
+    opacity: 1;
+    font-size: 67px;
+    top: 85%;
+    left: 100%;
+    width: 88px;
+    height: 88px;
+}
+
+#container-my-card .card-jitsu .content,
+#container-enemy-card .card-jitsu .content {
+    position: absolute;
+    top: 25%;
+    left: 14%;
+    z-index: 11;
+    filter: drop-shadow(2px 4px 20px black);
+}
+
+#container-my-card .card-jitsu .content img,
+#container-enemy-card .card-jitsu .content img {
+    width: 100%;
+}
+
+.main-container #me-points {
+    position: absolute;
+    width: 162px;
+    padding: 0;
+    top: 70px;
+    left: 0;
+    height: 54px;
+    display: flex;
+    align-items: center;
+}
+
+.main-container #enemy-points {
+    position: absolute;
+    padding: 0;
+    width: 162px;
+    top: 70px;
+    right: 0;
+    height: 54px;
+    display: flex;
+    align-items: center;
+}
+
+.main-container #me-points .points,
+.main-container #enemy-points .points {
+    width: 30px;
+    height: 30px;
+    margin: 12px;
+}
+
+.main-container #me-points .points .row-point,
+.main-container #enemy-points .points .row-point {
+    width: 30px;
+    height: 30px;
+    background-color: yellow;
+    filter: drop-shadow(2px 4px 6px black);
+    margin-top: -20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container #me-points .points .row-point img,
+.main-container #enemy-points .points .row-point img {
+    width: 80%;
+    filter: drop-shadow(2px 4px 6px black);
 }

@@ -340,11 +340,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
         function prueba(e) {
             var aux = e.target;
-            console.log(aux);
-            while (aux.classList[0] == null || aux.classList[0] != "card-jitsu") {
+            while (aux.parentNode.outerHTML != this.outerHTML) {
                 aux = aux.parentNode;
             }
-            console.log(aux);
+            var index = 0;
+            for (let i = 0; i < this.childNodes.length; i++) {
+                if (this.childNodes[i].outerHTML == aux.outerHTML) {
+                    index = (i - 1) / 2;
+                }
+            }
+            console.log(index);
         }
     </script>
 </body>

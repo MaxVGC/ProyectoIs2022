@@ -4,7 +4,6 @@
  */
 package Servlet;
 
-import AddOns.CardJitsu;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -32,18 +31,7 @@ public class Prueba extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            CardJitsu c = new CardJitsu();
-            String aux = "";
-            for (int i = 0; i < 5; i++) {
-                if (i < 2) {
-                    aux = aux + c.getCard().replace("orientation", "left-1");
-                } else if (i == 2) {
-                    aux = aux + c.getCard().replace("orientation", "center");
-                } else if (i > 2) {
-                    aux = aux + c.getCard().replace("orientation", "right-1");
-                }
-            }
-            out.write(aux);
+            
         }
     }
 

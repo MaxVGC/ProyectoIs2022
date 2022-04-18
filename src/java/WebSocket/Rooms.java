@@ -20,6 +20,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
@@ -50,8 +51,6 @@ public class Rooms {
         } else {
             salasList = new ArrayList();
         }
-        System.out.println("Size " + rooms.size());
-
         sala.setNombre(roomName);
         if (!rooms.containsKey(roomName)) {
             ArrayList<Usuarios> usuarios = new ArrayList<>();
@@ -62,11 +61,11 @@ public class Rooms {
             sala.setJuego(type);
             salasList.add(sala);
             if ("Card-Jitsu".equals(type)) {
-                System.out.println("entre");
                 CardJitsu juego = new CardJitsu();
                 juego.setNameRoom(roomName);
                 juego.setCurrentStatus("INITIALIZED");
                 juego.setJugador1(nickname);
+                juego.setSessionJugador1(session);
                 Salas_Cardjitsu.add(juego);
             }
             Set<Session> room = new HashSet<>();
@@ -77,6 +76,7 @@ public class Rooms {
             CardJitsu juego = new CardJitsu().getJuego(Salas_Cardjitsu, roomName);
             juego.setJugador2(nickname);
             juego.setCurrentStatus("STARTING");
+            juego.setSessionJugador2(session);
             sala.addUsuario(nickname);
             rooms.get(roomName).add(session);
         }
@@ -107,22 +107,53 @@ public class Rooms {
         String time = simpleDateFormat.format(date);
         String message;
         String[] data = msg.split("@");
-        if (data[0].equals("message")) {
-            msg = msg.substring(8, msg.length());
-            for (Session session1 : rooms.get(roomName)) {
-                if (session1.equals(session)) {
-                    message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + nickname + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
-                } else {
-                    message = "<div class=\"div-message\"> <div class=\"msg-nickname\"> <span>" + nickname + "</span> </div><div class=\"message\"> <span>" + msg + "</span> <div class=\"msg-time\"> <span> " + time + " </span> </div></div></div>";
+
+        switch (data[0]) {
+            case "action":
+                new CardJitsu().setAction(Salas_Cardjitsu, roomName, nickname, data[1]);
+                session.getBasicRemote().sendText("mycard@" + new CardJitsu().getCard(Salas_Cardjitsu, msg.substring(7, msg.length()), nickname));
+                for (Session session1 : rooms.get(roomName)) {
+                    if (!session1.equals(session)) {
+                        session1.getBasicRemote().sendText("enemycard@<div class=\"card-jitsu off\"> <div class=\"card-number-top\"> <span>?</span> </div><div class=\"content\"> <img src=\"../img/Plantilla_logo2.png\" alt=\"\" srcset=\"\"> </div><div class=\"card-number-bottom\"> <span style=\"transform: rotate(180deg);\">?</span> </div></div>");
+                    }
                 }
-                session1.getBasicRemote().sendText(message);
-            }
-        } else if (data[0].equals("nickname")) {
-            for (Session session1 : rooms.get(roomName)) {
-                if (!session1.equals(session)) {
-                    session1.getBasicRemote().sendText(msg);
+                if (new CardJitsu().turnCard(Salas_Cardjitsu, roomName)) {
+                    for (Session session1 : rooms.get(roomName)) {
+                        session1.getBasicRemote().sendText("turncard@" + new CardJitsu().getCard(Salas_Cardjitsu, session1));
+                        session1.getBasicRemote().sendText("result@" + new CardJitsu().resultAction(Salas_Cardjitsu, roomName, session1));
+                        session1.getBasicRemote().sendText("updateMazo@" + new CardJitsu().updateMazo(Salas_Cardjitsu, roomName, session1));
+                    }
+                    new CardJitsu().resetActions(Salas_Cardjitsu, roomName);
                 }
-            }
+                break;
+            case "getMazo":
+                session.getBasicRemote().sendText("getMazo@" + new CardJitsu().getMazo(Salas_Cardjitsu, roomName, nickname));
+                break;
+            case "startCountDown":
+                for (Session session1 : rooms.get(roomName)) {
+                    if (!session1.equals(session)) {
+                        session1.getBasicRemote().sendText(msg);
+                    }
+                }
+                break;
+            case "message":
+                msg = msg.substring(8, msg.length());
+                for (Session session1 : rooms.get(roomName)) {
+                    if (session1.equals(session)) {
+                        message = "<div class=\"div-message\" style=\"display: flex;flex-direction: column;align-items: flex-end;\"><div class=\"msg-nickname-me\"> <span>" + nickname + "</span> </div><div class=\"message-me\"><div style=\"display: flex;justify-content: flex-end;\"><span>" + msg + "</span></div><div class=\"msg-time\"><span>" + time + "</span></div></div></div>";
+                    } else {
+                        message = "<div class=\"div-message\"> <div class=\"msg-nickname\"> <span>" + nickname + "</span> </div><div class=\"message\"> <span>" + msg + "</span> <div class=\"msg-time\"> <span> " + time + " </span> </div></div></div>";
+                    }
+                    session1.getBasicRemote().sendText(message);
+                }
+                break;
+            case "nickname":
+                for (Session session1 : rooms.get(roomName)) {
+                    if (!session1.equals(session)) {
+                        session1.getBasicRemote().sendText(msg);
+                    }
+                }
+                break;
         }
 
     }

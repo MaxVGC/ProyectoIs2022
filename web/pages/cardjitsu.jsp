@@ -64,6 +64,34 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div id="me-points">
+                                    <div class="points fuego">
+
+                                    </div>
+                                    <div class="points agua">
+
+                                    </div>
+                                    <div class="points hielo">
+
+                                    </div>
+                                </div>
+                                <div id="enemy-points">
+                                    <div class="points fuego">
+
+                                    </div>
+                                    <div class="points agua">
+
+                                    </div>
+                                    <div class="points hielo">
+
+                                    </div>
+                                </div>
+                                <div id="container-my-card">
+
+                                </div>
+                                <div id="container-enemy-card">
+
+                                </div>
                             </div>
                             <div class="row card-container">
 

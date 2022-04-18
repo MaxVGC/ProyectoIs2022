@@ -1,8 +1,9 @@
 var xMLHttpRequest = new XMLHttpRequest();
 var send_btn = document.getElementById("send-btn");
 send_btn.addEventListener("click", send_msg);
+var countDown = true;
 var webSocket;
-var cards;
+
 
 ValidarUsuario();
 
@@ -21,13 +22,14 @@ function ValidarUsuario() {
             } else {
                 window.location = "inicio.jsp";
             }
-            console.log(xMLHttpRequest.responseText);
         }
     };
     xMLHttpRequest.send(null);
 }
 
 function initWebSocket() {
+    var cards;
+    var flag = 0;
     if ("WebSocket" in window) {
         if (webSocket == null) {
             var url = "ws://localhost:8080/JuegoDeCartas/webSocket/rooms/" + readCookie("room") + "/" + readCookie("type_game") + "/" + readCookie("nickname");
@@ -46,9 +48,143 @@ function initWebSocket() {
             if (evt.data != "null") {
                 var ident = evt.data.split("@");
                 switch (ident[0]) {
+                    case 'updateMazo':
+                        setTimeout(function() {
+                            var aux = document.getElementById("container-enemy-card");
+                            aux.style.right = "-50%";
+                            aux.style.opacity = "0";
+                            var aux = document.getElementById("container-my-card");
+                            aux.style.left = "-50%";
+                            aux.style.opacity = "0";
+                            var aux = document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.card-container");
+                            aux.style.top = "calc(100% - 255px)";
+                            aux.style.opacity = "1";
+                            aux.innerHTML = evt.data.substring(11, evt.data.length);
+                            cards = evt.data.substring(11, evt.data.length);
+                            aux.addEventListener("click", sendAction);
+                            VanillaTilt.init(document.querySelectorAll(".card-jitsu"), {
+                                max: 25,
+                                speed: 400,
+                            });
+                            const observer = new MutationObserver((mutationList) => {
+                                mutationList.forEach((mutation) => {
+                                    if (aux.innerHTML != cards) {
+                                        aux.innerHTML = cards;
+                                        VanillaTilt.init(document.querySelectorAll(".card-jitsu"), {
+                                            max: 25,
+                                            speed: 400,
+                                        });
+                                        cards = aux.innerHTML;
+                                    }
+                                })
+                            });
+                            const equipos = document.querySelector('.row.card-container');
+                            const observerOptions = {
+                                attributes: false,
+                                childList: true,
+                                subtree: true,
+                                characterData: true,
+                                attributeOldValue: false,
+                                characterDataOldValue: false
+                            };
+                            observer.observe(equipos, observerOptions);
+                            startCountDown(30, document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.main-container > div > div.timer"), "waitAction");
+                        }, 5000);
+                        break;
+                    case 'result':
+                        if (ident[1] == "me") {
+                            if (ident[3] == "fuego") {
+                                var aux = document.querySelector("#me-points > div.points.fuego");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/fuego100x100.png'></div>";
+                            } else if (ident[3] == "agua") {
+                                var aux = document.querySelector("#me-points > div.points.agua");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/Agua100x100.png'></div>";
+                            } else if (ident[3] == "hielo") {
+                                var aux = document.querySelector("#me-points > div.points.hielo");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/Hielo100x100.png'></div>";
+                            }
+                        } else if (ident[1] == "enemy") {
+                            if (ident[3] == "fuego") {
+                                var aux = document.querySelector("#enemy-points > div.points.fuego");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/fuego100x100.png'></div>";
+                            } else if (ident[3] == "agua") {
+                                var aux = document.querySelector("#enemy-points > div.points.agua");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/Agua100x100.png'></div>";
+                            } else if (ident[3] == "hielo") {
+                                var aux = document.querySelector("#enemy-points > div.points.hielo");
+                                aux.innerHTML = aux.innerHTML + "<div class='row-point " + ident[2] + "'><img src='../img/Hielo100x100.png'></div>";
+                            }
+                        }
+                        break;
+                    case 'turncard':
+                        var aux = document.getElementById("container-enemy-card");
+                        countDown = false;
+                        setTimeout(function() {
+                            aux.style.opacity = "0";
+                            setTimeout(function() {
+                                aux.innerHTML = ident[1];
+                                aux.style.opacity = "1";
+                            }, 500);
+                        }, 2000);
+                        break;
+                    case 'enemycard':
+                        var aux = document.getElementById("container-enemy-card");
+                        aux.innerHTML = ident[1];
+                        aux.style.right = "0";
+                        aux.style.opacity = "1";
+                        break;
+                    case 'mycard':
+                        var aux = document.getElementById("container-my-card");
+                        aux.innerHTML = ident[1];
+                        aux.style.left = "0";
+                        aux.style.opacity = "1";
+                        break;
+                    case 'getMazo':
+                        var aux = document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.card-container");
+                        aux.style.top = "calc(100% - 255px)";
+                        aux.style.opacity = "1";
+                        aux.innerHTML = evt.data.substring(8, evt.data.length);
+                        cards = evt.data.substring(8, evt.data.length);
+                        aux.addEventListener("click", sendAction);
+                        VanillaTilt.init(document.querySelectorAll(".card-jitsu"), {
+                            max: 25,
+                            speed: 400,
+                        });
+                        const observer = new MutationObserver((mutationList) => {
+                            mutationList.forEach((mutation) => {
+                                if (aux.innerHTML != cards) {
+                                    aux.innerHTML = cards;
+                                    VanillaTilt.init(document.querySelectorAll(".card-jitsu"), {
+                                        max: 25,
+                                        speed: 400,
+                                    });
+                                    cards = aux.innerHTML;
+                                }
+                            })
+                        });
+                        const equipos = document.querySelector('.row.card-container');
+                        const observerOptions = {
+                            attributes: false,
+                            childList: true,
+                            subtree: true,
+                            characterData: true,
+                            attributeOldValue: false,
+                            characterDataOldValue: false
+                        };
+                        observer.observe(equipos, observerOptions);
+                        startCountDown(30, document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.main-container > div > div.timer"), "waitAction");
+                        break;
                     case 'nickname':
                         document.getElementById("nickname2").innerHTML = ident[1];
-                        webSocket.send("nickname@<span style='z-index: 1;'>" + readCookie("nickname") + "</span>");
+                        if (flag == 0) {
+                            webSocket.send("nickname@<span style='z-index: 1;'>" + readCookie("nickname") + "</span>");
+                            webSocket.send("startCountDown@ready");
+                            flag = 1;
+                            console.log("flag");
+                        }
+                        break;
+                    case 'startCountDown':
+                        startCountDown(10, document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.main-container > div > div.timer"), "countDownInit");
                         break;
                     case 'leave':
                         alert(ident[1] + " se ha desconectado");
@@ -89,6 +225,59 @@ function send_msg() {
         alert("Estás desconectado, vuelve a ingresar a la sala de chat ...");
     }
 };
+
+function startCountDown(duration, element, type) {
+    let secondsRemaining = duration;
+    let sec = 0;
+    let countInterval = setInterval(function() {
+        sec = parseInt(secondsRemaining % 60);
+        element.innerHTML = "<span>" + sec + "</span>";
+        secondsRemaining = secondsRemaining - 1;
+        if (countDown) {
+            if (secondsRemaining < 0) {
+                console.log(countDown);
+                if (type == "countDownInit") {
+                    clearInterval(countInterval);
+                    webSocket.send("getMazo@null");
+                } else if (type == "waitAction") {
+                    var aux = document.querySelector("body > div > div > div.col-md-9.div-main-lobby > div > div.row.card-container");
+                    aux.style.top = "100%";
+                    aux.style.opacity = "0";
+                    webSocket.send("action@" + Math.floor(Math.random() * 5));
+                    clearInterval(countInterval);
+                }
+            }
+        } else {
+            clearInterval(countInterval);
+            countDown = true;
+            element.innerHTML = "<span>--</span>";
+        }
+    }, 1000);
+}
+
+function sendAction(e) {
+    this.style.top = "100%";
+    this.style.opacity = "0";
+    var aux = e.target;
+    while (aux.parentNode.outerHTML != this.outerHTML) {
+        aux = aux.parentNode;
+    }
+    var index = 0;
+    for (let i = 0; i < this.childNodes.length; i++) {
+        if (this.childNodes[i].outerHTML == aux.outerHTML) {
+            index = i;
+        }
+    }
+    webSocket.send("action@" + index);
+}
+
+function syncDelay(milliseconds) {
+    var start = new Date().getTime();
+    var end = 0;
+    while ((end - start) < milliseconds) {
+        end = new Date().getTime();
+    }
+}
 
 window.addEventListener('keydown', (event) => {
     if (event.code === 'Enter') {
